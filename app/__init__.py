@@ -9,6 +9,7 @@ from flask_mail import Mail
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_bootstrap import Bootstrap
 from config import config_options
+from flask_simplemde import SimpleMDE
 
 
 # initialize extensions/scope: global/create instance of extension class
@@ -20,6 +21,7 @@ login.login_view = 'auth.login'
 login.login_message = ('Please log in to access this page.')
 mail = Mail()
 bootstrap = Bootstrap()
+simple = SimpleMDE()
 
 #*change config class to config name
 def create_app(config_name):
@@ -31,6 +33,7 @@ def create_app(config_name):
     login.init_app(app)
     mail.init_app(app)
     bootstrap.init_app(app)
+    simple.init_app(app)
    
     #register blueprints/are inactive until initialized.
     from app.errors import bp as errors_bp

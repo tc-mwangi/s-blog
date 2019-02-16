@@ -1,0 +1,2 @@
+Karibu {{user.username}} to PitchView, where your pitches are validated!
+We would like to welcome you to the family.

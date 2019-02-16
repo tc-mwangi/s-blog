@@ -1,0 +1,41 @@
+2019-02-10 16:38:08,301 ERROR: Exception on /explore [GET] [in /Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask_login/utils.py", line 228, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/wanjirumwangi/Desktop/pitch-view/app/main/routes.py", line 52, in explore
+    page, current_app.config['POSTS_PER_PAGE'], False)
+KeyError: 'POSTS_PER_PAGE'
+2019-02-10 16:38:08,315 ERROR: Exception on /explore [GET] [in /Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/wanjirumwangi/Desktop/pitch-view/virtual/lib/python3.7/site-packages/flask_login/utils.py", line 228, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/wanjirumwangi/Desktop/pitch-view/app/main/routes.py", line 52, in explore
+    page, current_app.config['POSTS_PER_PAGE'], False)
+KeyError: 'POSTS_PER_PAGE'
+2019-02-10 16:38:53,259 INFO: Microblog startup [in /Users/wanjirumwangi/Desktop/pitch-view/app/__init__.py:74]
+2019-02-10 16:39:18,019 INFO: Microblog startup [in /Users/wanjirumwangi/Desktop/pitch-view/app/__init__.py:74]
+2019-02-10 16:44:00,826 INFO: Microblog startup [in /Users/wanjirumwangi/Desktop/pitch-view/app/__init__.py:74]

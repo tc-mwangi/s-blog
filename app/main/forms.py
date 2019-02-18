@@ -30,10 +30,10 @@ class EditProfileForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
+    subtitle = StringField('Subtitle', validators=[DataRequired()])
     author = StringField('Author', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[
-        DataRequired(), Length(min=1, max=800)])
-    
+        DataRequired(), Length(min=1, max=800)])   
     post = SubmitField('Post')
 
 

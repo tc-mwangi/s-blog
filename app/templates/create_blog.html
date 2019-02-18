@@ -1,7 +1,35 @@
-{% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
+
+
+
 {% block app_content %}
+  <!DOCTYPE html>
+  <html lang="en">
+
+      <head>
+
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <meta name="description" content="Living in the Now">
+          <meta name="author" content="dangermouse">
+        
+          <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
+          
+        
+        </head>
+        
+        <body>
+    
+      <!-- Navigation -->
+      {% block navbar %}
+        {% include 'navbar.html' %}
+      {% endblock %}
+      <!-- End of Navigation -->
+      <br>
+      <br>
     <h1>Create a Blog</h1>
     <div class="row">
         <div class="col-md-4">
@@ -9,4 +37,27 @@
         </div>
        
     </div>
+
+              <!-- Blog Post -->
+              {% for post in posts %}
+              <div class="card mb-4">
+                <img class="card-img-top" src="/static/images/photo-1508672019048-805c876b67e2.jpeg" alt="Card image cap">
+                <div class="card-body">
+                    
+                    
+                  <h2 class="card-title">{{post.title}}</h2>
+                  <p class="card-text">{{post.content}}</p>
+                  <a href="{{ url_for('main.blog_article') }}" class="btn btn-warning">Read More &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                  Posted on {{post.timestamp}} by
+                  <a href="">{{post.author}}</a>
+                </div>
+              </div>
+              {% endfor %}
+    <!-- Bootstrap JavaScript -->
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+
+  </body>
 {% endblock %}

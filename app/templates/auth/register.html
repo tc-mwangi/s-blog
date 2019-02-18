@@ -17,6 +17,13 @@
 </head>
 
 <body>
+   <!-- Navigation -->
+   {% block navbar %}
+   {% include 'navbar.html' %}
+ {% endblock %}
+ <!-- End of Navigation -->
+ <br>
+ <br>
     <div class="container">
         {% with messages = get_flashed_messages() %}
             {% if messages %}

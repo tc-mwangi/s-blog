@@ -90,8 +90,9 @@ class Post(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
-    content = db.Column(db.String(400))
+    title = db.Column(db.String(50))
+    subtitle = db.Column(db.String(50))
+    content = db.Column(db.String(140))
     # UTC time specific
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     # establish relationship with user

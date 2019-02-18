@@ -114,7 +114,7 @@ def post_pitch():
 def create_blog():
     form=PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data)
+        post = Post(title=form.title.data, subtitle=form.subtitle.data, content=form.content.data)
         db.session.add(post)
         db.session.commit()
         flash('Your blog is now live!')
@@ -127,14 +127,14 @@ def create_blog():
                            form=form)
 
 
-# @bp.route('/blog_article', methods=['GET', 'POST'])
-# @login_required
-# def blog_article():
+@bp.route('/blog_article', methods=['GET', 'POST'])
+@login_required
+def blog_article():
 
-#     posts = Post.query.order_by(Post.timestamp.desc()).all()
+    # posts = Post.query.order_by(Post.timestamp.desc()).all()
     
-#     return render_template('blog_article.html', title='Blog Article'
-#                            )
+    return render_template('blog_article.html', title='Blog Article'
+                           )
 
 
 

@@ -1,6 +1,4 @@
 Dear {{ user.username }},
 Welcome to Sojourner Blog!
-To confirm your account please click on the following link:
-{{ url_for('auth.confirm', token=token, _external=True) }}
-Sincerely,
-The s-B Team
+We have just seen you have signed up for our application and want to welcome you to the family. Please enjoy reading from our curated list of articles.
+The s-b Team

@@ -6,7 +6,7 @@ from app.auth import bp
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
 from werkzeug.urls import url_parse
 from app.models import User, Post
-from ..email import send_email
+from ..email import mail_message
 
 
 
@@ -67,6 +67,8 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
+
+        mail_message("Welcome to Sojourner Blog","email/welcome_user",user.email,user=user)
 
         
 

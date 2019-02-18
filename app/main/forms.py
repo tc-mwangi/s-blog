@@ -37,11 +37,10 @@ class PostForm(FlaskForm):
     post = SubmitField('Post')
 
 
-class PostPitchForm(FlaskForm):
+class SubscribeForm(FlaskForm):
     ''' '''
-    category = StringField('Category', validators=[DataRequired()])
-    body = TextAreaField('Body', validators=[Length(min=0, max=400)])
-    submit = SubmitField('Post')
+    email = StringField('Email', validators=[DataRequired()])
+    submit = SubmitField('Subscribe')
 
 
 
@@ -51,7 +50,7 @@ class EditPostForm(FlaskForm):
     subtitle = StringField('Subtitle', validators=[DataRequired()])
     author = StringField('Author', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[
-        DataRequired(), Length(min=1, max=800)])   
+        DataRequired(), Length(min=1, max=1000)])   
     post = SubmitField('Update')
 
 

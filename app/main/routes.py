@@ -3,8 +3,8 @@ from flask import render_template, flash, redirect, url_for, request, current_ap
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from werkzeug.urls import url_parse
-from app.models import User, Post, Quote
-from app.main.forms import EditProfileForm, PostForm, EditPostForm
+from app.models import User, Post, Quote, Subscribe
+from app.main.forms import EditProfileForm, PostForm, EditPostForm, SubscribeForm
 from app.main import bp
 from ..requests import get_quotes
 
@@ -38,6 +38,15 @@ def index():
         flash('Your post is now live!')
         return redirect(url_for('main.index'))
 
+    subscribe_form = SubscribeForm()
+    if form.validate_on_submit():
+
+        subscribe = Subscribe(email=subscribe_form.email.data)     
+        db.session.add(post)
+        db.session.commit()
+        flash('Your have subscribed to Sojourner')
+        return redirect(url_for('main.index'))
+
     
 
     
@@ -64,8 +73,7 @@ def index():
         
     # }
     # ]
-    return render_template('index.html', title='Home Page', form=form, posts=posts, quote=quote, author=author)
-
+    return render_template('index.html', title='Home Page', form=form, posts=posts, quote=quote, author=author, subscribe_form=subscribe_form)
 
 
 
@@ -159,6 +167,7 @@ def edit_blog():
     #     form.about_me.data = current_user.about_me
     return render_template('edit_blog.html', title='Create a Blog',
                            form=form)
+
 
 
 @bp.route('/my_blog_list')

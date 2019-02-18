@@ -1,71 +1,64 @@
-
-
 {% block app_content %}
-<head>
+  <!DOCTYPE html>
+  <html lang="en">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Living in the Now">
-    <meta name="author" content="dangermouse">
-  
-    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
-    
-  
-  </head>
-  
-  <body>
+      <head>
 
-
-<!-- Navigation -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="{{ url_for('main.index') }}">\(0-0)/</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-            
-          <li class="nav-item dropdown">
-            
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               {{current_user.username}}'s Dashboard
-              </a>
-              
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                
-              <a class="dropdown-item" href="">Edit Profile</a>
-              <a class="dropdown-item" href="main.create_blog">Create a Blog</a>
-              <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Log Out</a>
-              
-            </div>
-          </li>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <meta name="description" content="Living in the Now">
+          <meta name="author" content="dangermouse">
+        
+          <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
           
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- End of Navigation -->
-  <br>
-  <br>
-  <br>
-  <br>
+        
+        </head>
+        
+        <body>
+    
+      <!-- Navigation -->
+      {% block navbar %}
+        {% include 'navbar.html' %}
+      {% endblock %}
+      <!-- End of Navigation -->
+      <br>
+      <br>
 
-    <!-- Bootstrap JavaScript -->
-    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+      <div class="container">
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-info" role="alert">{{ message }}</div>
+                  {% endfor %}
+              {% endif %}
+          {% endwith %}
+                    
+      </div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <h1 class="mt-4 mb-3">Sojourner
+          <small>Blog</small>
+        </h1>
   
-  </body>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{{ url_for('main.index') }}">Home</a>
+          </li>
+          <li class="breadcrumb-item active text-warning">Profile</li>
+        </ol>
+
 
 
     <table class="table table-hover">
-        <tr>
+        <tr >
             <td width="256px"><img src="{{ user.avatar(256) }}"></td>
             <td>
-                <h1>Profile</h1>
+                <h1 class="text warning">Profile</h1>
                 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
                 {% if user.last_seen %}
                 <p>Last seen: {{ user.last_seen }}</p>
@@ -79,6 +72,14 @@
             </td>
         </tr>
     </table>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+  
+  </body>
+
+
 
 {% endblock %}
 

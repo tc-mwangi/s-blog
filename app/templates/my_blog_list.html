@@ -66,8 +66,10 @@
           <div class="card-body">
             <blockquote>{{post.content}}</blockquote>
             <div>
-                <a href="{{ url_for('main.edit_blog') }}" class="btn btn-primary">Edit Blog &rarr;</a>
+                <a href="{{ url_for('main.edit_blog') }}" class="btn btn-primary">Edit&rarr;</a>
+                <a href="{{ url_for('main.my_blog_list') }}" class="btn btn-danger">Delete &rarr;</a>
             </div>
+            
           </div>
           
         </div>

@@ -64,7 +64,7 @@ class User(UserMixin, db.Model):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
 
 
-        
+
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -95,7 +95,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50))
     subtitle = db.Column(db.String(50))
-    content = db.Column(db.String(140))
+    content = db.Column(db.String())
     # UTC time specific
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     # establish relationship with user

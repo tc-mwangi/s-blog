@@ -1,14 +1,81 @@
-
-
-{% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
+
 {% block app_content %}
-    <h1>Edit Profile</h1>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
-        <!-- <button><p><a href="{{ url_for('main.edit_profile') }}">Back to profile</a></p></button> -->
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Living in the Now">
+  <meta name="author" content="dangermouse">
+
+  <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
+  
+
+</head>
+
+<body>
+
+   <!-- Navigation -->
+   {% block navbar %}
+   {% include 'navbar.html' %}
+ {% endblock %}
+ <!-- End of Navigation -->
+ <br>
+ <br>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+                  
     </div>
+  <!-- Page Content -->
+  <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <h1 class="mt-4 mb-3">Edit
+          <small>Profile</small>
+        </h1>
+
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+               
+                <div class="control-group form-group">
+                        <div class="controls">
+                {{ wtf.quick_form(form) }} 
+                </div>
+
+
+                <a href="{{ url_for('main.user', username=current_user.username) }}" class="btn btn-warning">Back to Profile &rarr;</a>
+
+            
+                
+            </div>
+            
+             
+          </div>   
+        </div>
+        <!-- /.row -->
+    
+      </div>
+      <!-- /.container -->
+
+  <!-- Bootstrap JavaScript -->
+  <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+
+</body>
 {% endblock %}
+
+
+
+
+
+
+

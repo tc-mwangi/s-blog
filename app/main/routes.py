@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from werkzeug.urls import url_parse
 from app.models import User, Post, Quote
-from app.main.forms import EditProfileForm, PostForm
+from app.main.forms import EditProfileForm, PostForm, EditPostForm
 from app.main import bp
 from ..requests import get_quotes
 
@@ -84,7 +84,6 @@ def user(username):
 
     user = User.query.filter_by(username=username).first_or_404()
 
-    # posts = Post.query.filter_by(username=current_user).first_or_404()
     posts = Post.query.order_by(Post.timestamp.desc()).all()
     return render_template('user.html', user=user, posts=posts)
 
@@ -142,6 +141,44 @@ def blog_article():
     
     return render_template('blog_article.html', title='Blog Article'
                            )
+
+
+@bp.route('/edit_blog', methods=['GET', 'POST'])
+@login_required
+def edit_blog():
+    form=PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, subtitle=form.subtitle.data, content=form.content.data)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your blog has been updated!')
+        return redirect(url_for('main.index'))
+
+    # elif request.method == 'GET':
+    #     form.username.data = current_user.username
+    #     form.about_me.data = current_user.about_me
+    return render_template('edit_blog.html', title='Create a Blog',
+                           form=form)
+
+
+@bp.route('/my_blog_list')
+@login_required
+def my_blog_list():
+    '''[summary]
+    
+    Arguments:
+        username {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    '''
+   
+
+    # user = User.query.filter_by(username=username).first_or_404()
+    # posts = Post.query.filter_by(author_id=author_id).all()
+
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('my_blog_list.html', user=user, posts=posts)
 
 
 

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+
 
 {% block app_content %}
 <head>
@@ -65,11 +65,13 @@
         <tr>
             <td width="256px"><img src="{{ user.avatar(256) }}"></td>
             <td>
-                <h1>{{ user.username }}'s Profile</h1>
+                <h1>Profile</h1>
                 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
                 {% if user.last_seen %}
                 <p>Last seen: {{ user.last_seen }}</p>
-                <button> <p><a href="{{ url_for('main.edit_profile') }}">Edit Profile</a></p></button>
+
+
+                <a href="{{ url_for('main.edit_profile') }}" class="btn btn-warning">Edit Profile &rarr;</a>
                
                 <!-- <p><a href="{{ url_for('main.post_pitch') }}">Pitch It</a></p> -->
                 {% endif %}
@@ -77,23 +79,26 @@
             </td>
         </tr>
     </table>
-    <h1>Your Pitches</h1>
-    {% for post in posts %}
-        {% include '_post.html' %}
-    {% endfor %}
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> Newer Posts
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Older Posts <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <h1>Your Blog Posts</h1>
+
+              <!-- Blog Post -->
+              {% for post in posts %}
+              <div class="card mb-4">
+                <img class="card-img-top" src="/static/images/photo-1508672019048-805c876b67e2.jpeg" alt="Card image cap">
+                <div class="card-body">
+                    
+                    
+                  <h2 class="card-title">{{post.title}}</h2>
+                  <p class="card-text">{{post.content}}</p>
+                  <a href="{{ url_for('main.edit_blog') }}" class="btn btn-warning">Edit Blog &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                  Posted on {{post.timestamp}} by
+                  <a href="">{{post.author}}</a>
+                </div>
+              </div>
+              {% endfor %}
+    
+
 {% endblock %}
 

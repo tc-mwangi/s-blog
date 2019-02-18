@@ -2,7 +2,7 @@ from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import login
+from . import login
 from hashlib import md5
 
 
@@ -39,11 +39,12 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    # relationship link
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(255))
     # profile_pic_path = db.column(db.String())
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # relationships
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     
     
@@ -99,13 +100,11 @@ class Post(db.Model):
     title = db.Column(db.String(50))
     subtitle = db.Column(db.String(50))
     content = db.Column(db.String())
-    # UTC time specific
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    # establish relationship with user
+
+    # relationships
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # relationship link
-    # category = db.relationship('Category', backref='type', lazy='dynamic')
-    # relationship link
+    category = db.relationship('Category', backref='type', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
 
     def __repr__(self):

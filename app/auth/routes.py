@@ -6,6 +6,7 @@ from app.auth import bp
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
 from werkzeug.urls import url_parse
 from app.models import User, Post
+from ..email import send_email
 
 
 
@@ -66,7 +67,8 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+
+        
 
         return redirect(url_for('auth.login'))
         

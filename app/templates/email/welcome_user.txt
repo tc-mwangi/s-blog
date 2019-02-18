@@ -1,2 +1,6 @@
-Karibu {{user.username}} to PitchView, where your pitches are validated!
-We would like to welcome you to the family.
+Dear {{ user.username }},
+Welcome to Sojourner Blog!
+To confirm your account please click on the following link:
+{{ url_for('auth.confirm', token=token, _external=True) }}
+Sincerely,
+The s-B Team

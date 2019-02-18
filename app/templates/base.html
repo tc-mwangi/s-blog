@@ -1,43 +1,46 @@
-{% extends 'bootstrap/base.html'%}
+{% extends 'bootstrap/base.html' %}
 
-{% block title %}
-    {% if title %}{{ title }} - Sojourner{% else %}Living in the Now{% endif %}
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Living in the Now">
+		<meta name="author" content="dangermouse">
+		{% block title %}
+			{% if title %}{{ title }} - PitchView{% else %}Welcome to PitchView{% endif %}
+		{% endblock %}
+		
+		<link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">		
+	</head>
+  
+    <body>
+        {% block navbar %}
+            {% include 'navbar.html' %}
+        {% endblock %}
 
+		{% block content %}
+    		<div class="container">
+        	{% with messages = get_flashed_messages() %}
+        		{% if messages %}
+            		{% for message in messages %}
+            			<div class="alert alert-info" role="alert">{{ message }}</div>
+            		{% endfor %}
+        		{% endif %}
+        	{% endwith %}
 
-{%block styles %}
-
-  {{super()}}
-  <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
-  <!--Importing the simple mde css and js files  -->
-  {{ simplemde.css}}
-  {{ simplemde.js }}
-
-{% endblock %}
-
-<!-- Navbar block  -->
-{% block navbar %}
-    {% include 'navbar.html' %}
-{% endblock %}
-
-{% block content %}
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-info" role="alert">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-
-        {# application content needs to be provided in the app_content block #}
-        {% block app_content %}{% endblock %}
-    </div>
-{% endblock %}
-
-
-    
-
-
+        	{# app content goes heeeereee #}
+			{% block app_content %}
+			
+			{% endblock %}
+    		</div>
+		{% endblock %}
+    <!-- Bootstrap JavaScript -->
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+  
+  </body>
 
 

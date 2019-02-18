@@ -3,7 +3,7 @@ from app import app, db
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
-from app.models import User, Post
+from app.models import User, Post, Quote
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
 
 # A decorator provides mapping between a url and a function.
@@ -33,8 +33,22 @@ def index():
         return redirect(url_for('index'))
         
     posts = Post.query.order_by(Post.timestamp.desc()).all()
+
+    quotes = [
+    {
+        'author': 'Rich Cook',
+        'quote': 'Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.', 
+        
+    },
+    {
+        
+        'author': 'Robert Sewell',
+        'quote': 'If Java had true garbage collection, most programs would delete themselves upon execution.', 
+        
+    }
+]
     
-    return render_template('index.html', title='Home Page', form=form, posts=posts)
+    return render_template('index.html', title='Home Page', form=form, posts=posts, quotes=quotes)
 
 
 @app.route('/login', methods=['GET', 'POST'])

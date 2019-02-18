@@ -36,9 +36,9 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                 
               <a class="dropdown-item" href="{{ url_for('main.user', username=current_user.username) }}">Edit Profile</a>
-              <a class="dropdown-item" href="main.create_blog">Create a Blog</a>
+              <a class="dropdown-item" href="">Create a Blog</a>
               <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Log Out</a>
-              {% endif %}
+              
             </div>
           </li>
           

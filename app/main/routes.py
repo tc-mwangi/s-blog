@@ -3,9 +3,10 @@ from flask import render_template, flash, redirect, url_for, request, current_ap
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from werkzeug.urls import url_parse
-from app.models import User, Post
+from app.models import User, Post, Quote
 from app.main.forms import EditProfileForm, PostForm
 from app.main import bp
+from ..requests import get_quotes
 
 
 # A decorator provides mapping between a url and a function.
@@ -29,15 +30,34 @@ def index():
     '''
     form=PostForm()
     if form.validate_on_submit():
+
+        post = Post(body=form.post.data, author=current_user)
         post = Post(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('main.index'))
-        
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
+
     
-    return render_template('index.html', title='Home Page', form=form, posts=posts)
+
+    
+    
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+
+    quotes = [
+    {
+        'author': 'Rich Cook',
+        'quote': 'Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.', 
+        
+    },
+    {
+        
+        'author': 'Robert Sewell',
+        'quote': 'If Java had true garbage collection, most programs would delete themselves upon execution.', 
+        
+    }
+    ]
+    return render_template('index.html', title='Home Page', form=form, posts=posts, quotes=quotes)
 
 
 
@@ -53,6 +73,7 @@ def user(username):
     Returns:
         [type] -- [description]
     '''
+   
 
     user = User.query.filter_by(username=username).first_or_404()
 
@@ -86,6 +107,40 @@ def post_pitch():
    
     return render_template('post_pitch.html', title='Post Pitch',
                            form=form)
+
+
+@bp.route('/create_blog', methods=['GET', 'POST'])
+@login_required
+def create_blog():
+    form=PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your blog is now live!')
+        return redirect(url_for('main.index'))
+
+    # elif request.method == 'GET':
+    #     form.username.data = current_user.username
+    #     form.about_me.data = current_user.about_me
+    return render_template('create_blog.html', title='Create a Blog',
+                           form=form)
+
+
+# @bp.route('/blog_article', methods=['GET', 'POST'])
+# @login_required
+# def blog_article():
+
+#     posts = Post.query.order_by(Post.timestamp.desc()).all()
+    
+#     return render_template('blog_article.html', title='Blog Article'
+#                            )
+
+
+
+
+
+
 
 
 

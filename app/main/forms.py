@@ -29,15 +29,21 @@ class EditProfileForm(FlaskForm):
     
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Post a Pitch', validators=[
-        DataRequired(), Length(min=1, max=255)])
-    category = StringField('Category', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()])
+    author = StringField('Author', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[
+        DataRequired(), Length(min=1, max=800)])
     
-    submit = SubmitField('Submit')
+    post = SubmitField('Post')
 
 
 class PostPitchForm(FlaskForm):
     ''' '''
     category = StringField('Category', validators=[DataRequired()])
-    body = TextAreaField('Body', validators=[Length(min=0, max=140)])
+    body = TextAreaField('Body', validators=[Length(min=0, max=400)])
     submit = SubmitField('Post')
+
+
+
+
+

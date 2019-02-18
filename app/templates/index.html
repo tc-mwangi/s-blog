@@ -1,14 +1,145 @@
-{% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
-
 {% block app_content %}
-    <h1>Welcome to PitchView</h1>
-    {% if form %}
-    {{ wtf.quick_form(form) }}
-    <br>
-    {% endif %}
-    {% for post in posts %}
-        {% include '_post.html' %}
-    {% endfor %}
+  <!DOCTYPE html>
+  <html lang="en">
 
+      <head>
+
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <meta name="description" content="Living in the Now">
+          <meta name="author" content="dangermouse">
+        
+          <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
+          
+        
+        </head>
+        
+        <body>
+    
+      <!-- Navigation -->
+      {% block navbar %}
+        {% include 'navbar.html' %}
+      {% endblock %}
+      <!-- End of Navigation -->
+      <br>
+      <br>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3">Sojourner
+        <small>Blog</small>
+      </h1>
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{{ url_for('main.index') }}">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Blog</li>
+      </ol>
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <!-- Blog Post -->
+          {% for post in posts %}
+          <div class="card mb-4">
+            <img class="card-img-top" src="/static/images/photo-1508672019048-805c876b67e2.jpeg" alt="Card image cap">
+            <div class="card-body">
+                
+                
+              <h2 class="card-title">{{post.title}}</h2>
+              <p class="card-text">{{post.content}}</p>
+              <a href="{{ url_for('main.index') }}" class="btn btn-warning">Read More &rarr;</a>
+            </div>
+            <div class="card-footer text-muted">
+              Posted on {{post.timestamp}} by
+              <a href="">{{post.author}}</a>
+            </div>
+          </div>
+          {% endfor %}
+
+          
+        
+    
+
+          <!-- Pagination -->
+          <ul class="pagination justify-content-center mb-4">
+            <li class="page-item">
+              <a class="page-link" href="#">&larr; Older</a>
+            </li>
+            <li class="page-item disabled">
+              <a class="page-link" href="#">Newer &rarr;</a>
+            </li>
+          </ul>
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+          <!-- Search Widget -->
+          <div class="card mb-4">
+            <h5 class="card-header">Search</h5>
+            <div class="card-body">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- Side Widget -->
+          {% for quote in quotes %}
+          <div class="card my-4">
+            <h5 class="card-header text-warning" >{{quote.author}}</h5>
+            <div class="card-body">
+                "{{quote.quote}}"
+                    <br>
+                    <br>                 
+            </div>
+            
+          </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-warning">Copyright &copy; Sojourner 2019</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+
+  </body>
 {% endblock %}
+
+
+  
+
+
+
+
+
+
+        
+    
+
+

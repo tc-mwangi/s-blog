@@ -43,21 +43,28 @@ def index():
     
     
     posts = Post.query.order_by(Post.timestamp.desc()).all()
+    # get quotes
+    random_quotes = get_quotes()
 
-    quotes = [
-    {
-        'author': 'Rich Cook',
-        'quote': 'Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.', 
+    quote= random_quotes['quote']
+    author= random_quotes['author']
+    
+
+
+    # quotes = [
+    # {
+    #     'author': 'Rich Cook',
+    #     'quote': 'Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.', 
         
-    },
-    {
+    # },
+    # {
         
-        'author': 'Robert Sewell',
-        'quote': 'If Java had true garbage collection, most programs would delete themselves upon execution.', 
+    #     'author': 'Robert Sewell',
+    #     'quote': 'If Java had true garbage collection, most programs would delete themselves upon execution.', 
         
-    }
-    ]
-    return render_template('index.html', title='Home Page', form=form, posts=posts, quotes=quotes)
+    # }
+    # ]
+    return render_template('index.html', title='Home Page', form=form, posts=posts, quote=quote, author=author)
 
 
 

@@ -26,6 +26,17 @@
       <br>
       <br>
 
+      <div class="container">
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-info" role="alert">{{ message }}</div>
+                  {% endfor %}
+              {% endif %}
+          {% endwith %}
+                    
+      </div>
+
     <!-- Page Content -->
     <div class="container">
 
@@ -92,17 +103,25 @@
             </div>
           </div>
           <!-- Side Widget -->
-          {% for quote in quotes %}
+          
           <div class="card my-4">
-            <h5 class="card-header text-warning" >{{quote.author}}</h5>
+            <h5 class="card-header text-warning" >Quote of The Day</h5>
             <div class="card-body">
-                "{{quote.quote}}"
+                "{{quote}}"<br>
+                - {{author}} -
                     <br>
                     <br>                 
             </div>
             
           </div>
-          {% endfor %}
+          
+
+          <!-- <p>{{ quote }}</p>
+          <p>{{ author }}</p> -->
+
+          
+							</h2>
+							
 
         </div>
 

@@ -6,6 +6,7 @@ from werkzeug.urls import url_parse
 from app.models import User, Post, Quote
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
 
+
 # A decorator provides mapping between a url and a function.
 # you can chain more than one url to the same fuction.
 @app.before_request

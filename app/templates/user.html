@@ -73,6 +73,35 @@
         </tr>
     </table>
 
+
+    {% for post in posts %}
+    <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOne">
+          <h5 class="mb-0">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{{post.title}} </a>
+          </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-body">
+            <blockquote>{{post.content}}</blockquote>
+            <div>
+                <a href="{{ url_for('main.edit_blog') }}" class="btn btn-primary">Edit&rarr;</a>
+                <a href="{{ url_for('main.my_blog_list') }}" class="btn btn-danger">Delete &rarr;</a>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+      <div class="card">
+        
+        
+      </div>
+    </div>
+    {% endfor %}
+
     <!-- Bootstrap JavaScript -->
     <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>

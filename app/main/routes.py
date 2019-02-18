@@ -91,8 +91,8 @@ def user(username):
    
 
     user = User.query.filter_by(username=username).first_or_404()
-
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    posts = user.posts.order_by(Post.timestamp.desc()).all()
+    # posts = Post.query.order_by(Post.timestamp.desc()).all()
     return render_template('user.html', user=user, posts=posts)
 
 
@@ -182,7 +182,7 @@ def my_blog_list():
         [type] -- [description]
     '''
    
-
+    
     # user = User.query.filter_by(username=username).first_or_404()
     # posts = Post.query.filter_by(author_id=author_id).all()
 

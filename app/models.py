@@ -95,7 +95,6 @@ class Post(db.Model):
         [type] -- [description]
     '''
 
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50))
     subtitle = db.Column(db.String(50))
@@ -105,10 +104,66 @@ class Post(db.Model):
     # relationships
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category = db.relationship('Category', backref='type', lazy='dynamic')
-    comments = db.relationship('Comment', backref='author', lazy='dynamic')
+    comments = db.relationship('Comment', backref='user', lazy='dynamic')
+
+
+
+    def save_post(self):
+        db.session.add(self)
+        db.session.commit()
+
+    
+
+
+
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+
+
+
+
+
+class Comment(db.Model):
+    __tablename__ = 'comment'
+
+    '''[summary]
+    
+    Arguments:
+        db {[type]} -- [description]
+    '''
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(140))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    timestamp = db.Column(db.DateTime(), default=datetime.utcnow, index=True)
+
+    # relationships
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+    @classmethod
+    def get_comments(cls,id):
+        comments =Comment.query.filter_by(post_id=id).all()
+
+
+
+class Quote:
+    '''
+    Quote class to create quotes
+    '''
+
+    def __init__(self,id, author, quote, permalink):
+        self.id =id
+        self.author = author
+        self.quote = quote
+        self.permalink = permalink
+
 
 
 class Subscribe():
@@ -128,34 +183,6 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     Category = db.Column(db.String(20), index=True, unique=True)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-
-
-
-class Comment(db.Model):
-    __tablename__ = 'comment'
-
-    '''[summary]
-    
-    Arguments:
-        db {[type]} -- [description]
-    '''
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(140))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-    timestamp = db.Column(db.DateTime(), default=datetime.utcnow, index=True)
-
-
-
-class Quote:
-    '''
-    Quote class to create quotes
-    '''
-
-    def __init__(self,id, author, quote, permalink):
-        self.id =id
-        self.author = author
-        self.quote = quote
-        self.permalink = permalink
        
 
 

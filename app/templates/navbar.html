@@ -1,8 +1,8 @@
 {% block app_content %}
 <!-- Navigation -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top ">
     <div class="container">
-      <a class="navbar-brand" href="{{ url_for('main.index') }}">\(0-0)/</a>
+      <a class="navbar-brand text-warning" href="{{ url_for('main.index') }}">\(0-0)/</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -11,7 +11,7 @@
             
           <li class="nav-item dropdown">
               {% if current_user.is_anonymous %}
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle text-warning" href="" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Hello Visitor
             </a>
             {% else %}

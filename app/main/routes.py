@@ -116,7 +116,7 @@ def edit_profile():
 @bp.route('/post_pitch', methods=['GET', 'POST'])
 @login_required
 def post_pitch():
-    form = PostForm(current_user.username)
+    form = PostForm()
     
    
     return render_template('post_pitch.html', title='Post Pitch',
@@ -126,9 +126,11 @@ def post_pitch():
 @bp.route('/create_blog', methods=['GET', 'POST'])
 @login_required
 def create_blog():
-    form=PostForm()
+    form=PostForm(
+        
+    )
     if form.validate_on_submit():
-        post = Post(title=form.title.data, subtitle=form.subtitle.data, content=form.content.data)
+        post = Post(title=form.title.data, subtitle=form.subtitle.data,author=current_user, content=form.content.data)
         db.session.add(post)
         db.session.commit()
         flash('Your blog is now live!')

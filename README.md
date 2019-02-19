@@ -1,4 +1,4 @@
-# PitchView™
+# Sojourner Blog™
 
 Post your **pitch**, get feedback, post comments or vote on pitches.
 
@@ -65,7 +65,7 @@ chmod a+x start.sh
 
 ## Author
 
-**@top-cat** - *Initial work* - [PitchView™](https://github.com/tc-mwangi/pitch-preview)
+**@top-cat** - *Initial work* - [Sojourner™](https://github.com/tc-mwangi/pitch-preview)
 
 
 ## Credits
@@ -73,4 +73,4 @@ chmod a+x start.sh
 **Powered by** [-](/)
 
 ## License
-MIT © [PitchView™]()
+MIT © [Sojourner™]()

@@ -1,3 +1,6 @@
 export MAIL_USERNAME=saber.dangermouse@gmail.com
 export MAIL_PASSWORD=cartoonroyalty
-python3.6 manage.py server
+export SECRET_KEY=shesellsseashellsbytheseashore
+export DATABASE_PASS=master
+
+python3.7 manage.py server

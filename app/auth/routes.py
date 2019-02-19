@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
-from app import db
+from .. import db
 from app.auth import bp
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
 from werkzeug.urls import url_parse
@@ -68,7 +68,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        # mail_message("Welcome to Sojourner Blog","email/welcome_user",user.email,user=user)
+        mail_message("Welcome to Sojourner Blog","email/welcome_user",user.email,user=user)
 
         
 

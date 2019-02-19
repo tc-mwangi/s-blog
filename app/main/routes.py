@@ -3,8 +3,8 @@ from flask import render_template, flash, redirect, url_for, request, current_ap
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from werkzeug.urls import url_parse
-from app.models import User, Post, Quote, Subscribe
-from app.main.forms import EditProfileForm, PostForm, EditPostForm, SubscribeForm
+from app.models import User, Post, Quote, Subscribe, Comment
+from app.main.forms import EditProfileForm, PostForm, EditPostForm, SubscribeForm, CommentForm
 from app.main import bp
 from ..requests import get_quotes
 
@@ -32,7 +32,7 @@ def index():
     if form.validate_on_submit():
 
         post = Post(body=form.post.data, author=current_user)
-        post = Post(body=form.post.data, author=current_user)
+        # post = Post(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
@@ -108,6 +108,7 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
+        db.session.add()
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('main.edit_profile'))
@@ -117,15 +118,6 @@ def edit_profile():
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
 
-
-@bp.route('/post_pitch', methods=['GET', 'POST'])
-@login_required
-def post_pitch():
-    form = PostForm()
-    
-   
-    return render_template('post_pitch.html', title='Post Pitch',
-                           form=form)
 
 
 @bp.route('/create_blog', methods=['GET', 'POST'])
@@ -152,10 +144,62 @@ def create_blog():
 @login_required
 def blog_article():
 
-    # posts = Post.query.order_by(Post.timestamp.desc()).all()
+    # post = Post.query.get_or_404(id)
+    # form = CommentForm()
+    # if form.validate_on_submit():
+    #     comment = Comment(body=form.body.data,
+    #     post=post,
+    #     author=current_user._get_current_object())
+    #     db.session.add(comment)
+    #     flash('Your comment has been published.')
+    #     return redirect(url_for('.post', id=post.id))
+
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
     
     return render_template('blog_article.html', title='Blog Article'
                            )
+
+# alter!!!
+@bp.route('/post/<int:id>', methods=['GET', 'POST'])
+def post(id):
+ post = Post.query.get_or_404(id)
+ form = CommentForm()
+ if form.validate_on_submit():
+    comment = Comment(body=form.body.data,
+    post=post,
+    author=current_user._get_current_object())
+    db.session.add(comment)
+    flash('Your comment has been published.')
+    return redirect(url_for('.post', id=post.id))
+
+ return render_template('post.html', posts=post, form=form,
+ comment=comment)
+
+
+
+# alter!!!
+@bp.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit(id):
+    post = Post.query.get_or_404(id)
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, subtitle=form.subtitle.data, content=form.content.data)
+        # post.body = form.body.data
+        db.session.add(post)
+        db.session.commit()
+        flash('The post has been updated.')
+        return redirect(url_for('.post', id=post.id))
+    form.body.data = post.body
+    return render_template('edit_post.html', form=form)
+
+
+
+
+
+
+
+
 
 
 @bp.route('/edit_blog', methods=['GET', 'POST'])

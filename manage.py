@@ -6,8 +6,8 @@ from config import Config
 
 # instances for the create_app
 #app = create_app('test')
-app = create_app('development')
-# app = create_app('production')
+#app = create_app('development')
+app = create_app('production')
 
 manager = Manager(app)
 manager.add_command('server',Server)

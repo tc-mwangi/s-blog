@@ -1,8 +1,8 @@
-"""roles table
+"""Initial Migration
 
-Revision ID: bcaa2576776a
-Revises: 3998e53c74df
-Create Date: 2019-02-18 03:39:09.730122
+Revision ID: efd158c7c77d
+Revises: 
+Create Date: 2019-02-19 06:03:38.135181
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bcaa2576776a'
-down_revision = '3998e53c74df'
+revision = 'efd158c7c77d'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -38,10 +38,12 @@ def upgrade():
     op.create_index(op.f('ix_user_username'), 'user', ['username'], unique=True)
     op.create_table('post',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('body', sa.String(length=140), nullable=True),
+    sa.Column('title', sa.String(length=50), nullable=True),
+    sa.Column('subtitle', sa.String(length=50), nullable=True),
+    sa.Column('content', sa.String(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.Column('author_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['author_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_post_timestamp'), 'post', ['timestamp'], unique=False)
@@ -56,8 +58,10 @@ def upgrade():
     op.create_table('comment',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('text', sa.String(length=140), nullable=True),
-    sa.Column('post_id', sa.Integer(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
+    sa.Column('author_id', sa.Integer(), nullable=True),
+    sa.Column('post_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['author_id'], ['user.id'], ),
     sa.ForeignKeyConstraint(['post_id'], ['post.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

@@ -96,6 +96,11 @@ def user(username):
     return render_template('user.html', user=user, posts=posts)
 
 
+
+
+
+
+
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -183,12 +188,16 @@ def my_blog_list():
     Returns:
         [type] -- [description]
     '''
+
+    # user = User.query.filter_by(username=username).first_or_404()
+    # posts = user.posts.order_by(Post.timestamp.desc()).all()
    
     
     # user = User.query.filter_by(username=username).first_or_404()
     # posts = Post.query.filter_by(author_id=author_id).all()
 
     posts = Post.query.order_by(Post.timestamp.desc()).all()
+    # posts = Post.query.filter_by(user.id).all()
     return render_template('my_blog_list.html', user=user, posts=posts)
 
 

@@ -46,6 +46,7 @@ class User(UserMixin, db.Model):
     # relationships
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+    comments = db.relationship('Comment', backref='author', lazy='dynamic')
     
     
 
@@ -104,7 +105,7 @@ class Post(db.Model):
     # relationships
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category = db.relationship('Category', backref='type', lazy='dynamic')
-    comments = db.relationship('Comment', backref='user', lazy='dynamic')
+    comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
 
 
@@ -142,17 +143,10 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow, index=True)
 
     # relationships
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
 
-    def save_comment(self):
-        db.session.add(self)
-        db.session.commit()
-
-
-    @classmethod
-    def get_comments(cls,id):
-        comments =Comment.query.filter_by(post_id=id).all()
 
 
 
